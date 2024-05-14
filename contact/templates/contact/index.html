@@ -2,6 +2,7 @@
 
 
 {% block content %}
+{% if contacts %}
     
     <div class="reponsive-table">
         <table class="contacts-table">
@@ -42,6 +43,11 @@
             </tbody>
         </table>
     </div>
-        
+    {% else %}
+    <div class="single-contact">
+      <h1 class="single-contact-name">
+        No contact found
+      </h1>
+    </div>
+  {% endif %}
 {% endblock content %}
-    
