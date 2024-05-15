@@ -1,11 +1,8 @@
 {% extends 'global/base.html' %}
-
 {% block content %}
-  <h1>CREATE CONTACT</h1>
   <div class="form-wrapper">
-
     <h2>Contact</h2>
-
+    
     <form 
       action="{% url 'contact:create' %}"
       method="POST"
@@ -15,23 +12,23 @@
 
       <div class="form-content">
        
-       {% for field in form  %}
+        {% for field in form %}
         <div class="form-group">
-            <label for="{{field.id_for_label}}">{{field.label}}</label>
-            {{field}}
-            {{field.erros}}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {{ field.errors }}
         </div>
-       {% endfor %}
+      {% endfor %}
       </div>
-     {% if form.non_field_errors %}
-      <div class="form-content">
-        <div class="form-group">
-          <div class="message error">
-            {{ form.non_field_errors }}
+    {% if form.non_field_errors %}
+        <div class="form-content">
+          <div class="form-group">
+            <div class="message error">
+              {{ form.non_field_errors }}
+            </div>
           </div>
         </div>
-      </div>
-    {% endif %} 
+    {% endif %}
 
       <div class="form-content">
         <div class="form-group">
