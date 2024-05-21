@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from contact.forms import ContactForm
 from django.urls import reverse
 from contact.models import Contact
+from django.contrib import messages
+
 
 
 
@@ -18,6 +20,7 @@ def create(request):
         }
         if form.is_valid():
             contact = form.save()
+            messages.success(request, 'Contact has been registered successfully')
             return redirect('contact:index')
         return render(
             request,
@@ -43,6 +46,7 @@ def update(request, contact_id):
         form = ContactForm(request.POST,request.FILES, instance=contact)
         if form.is_valid():
             contact = form.save()
+            messages.success(request, 'User has been updated successfully')
             return redirect('contact:index',)
     else:
         form = ContactForm(instance=contact)
@@ -61,4 +65,5 @@ def update(request, contact_id):
 def delete(request, contact_id):
     contact = get_object_or_404(Contact, id=contact_id, show=True)
     contact.delete()
+    messages.error(request, 'User has been deleted successfully')
     return redirect('contact:index')
