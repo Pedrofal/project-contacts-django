@@ -21,24 +21,24 @@
             </p>
         {% endif %}
             
-
+        
+        {% if user == contact.owner %}
         <div class="contact-links">
             <a href="{% url 'contact:update' contact.id %}" class="btn btn-link">Update</a>
-            <button onclick="confirmarExclusao()" class="btn btn-link btn-delete">Delete</button>
+            <button onclick="confirmDelete()" class="btn btn-link btn-delete">Delete</button>
             <form id="form-exclusao" action="{% url 'contact:delete' contact.id %}" method="POST" style="display: none;">
                 {% csrf_token %}
             </form>
         </div>
-    </div>
-
-    
+  
     <script>
-        function confirmarExclusao() {
+        function confirmDelete() {
             if (confirm("Do you realy want to delete this contact?")) {
                 document.getElementById('form-exclusao').submit(); 
             }
         }
-    </script>  
+    </script>
+    {% endif %}  
 
 
    

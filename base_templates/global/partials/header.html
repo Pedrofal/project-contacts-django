@@ -4,17 +4,35 @@
     </h1>
     <nav class="menu">
       <ul class="menu-list">
+      
+      {% if user.is_authenticated %}
         <li class="menu-item">
           <a href="http://127.0.0.1:8000/contact/create" class="menu-link">New Contact</a>
         </li>
         <li class="menu-item">
-          <a href="http://127.0.0.1:8000/user/create/" class=" menu-link" >Link 2</a>
+          <a href="http://127.0.0.1:8000/user/update/" class=" menu-link" >Edit Profile</a>
         </li>
+        <li class="menu-item">
+          <a  href="http://127.0.0.1:8000/user/logout/" class="menu-link">Logout</a>
+        </li>
+      {% else %}
+        <li class="menu-item">
+          <a href="http://127.0.0.1:8000/user/login/" class=" menu-link" >Login</a>
+        </li>
+        <li class="menu-item">
+          <a href="http://127.0.0.1:8000/user/create/" class=" menu-link" >Register</a>
+        </li>
+
+      {% endif %}
       </ul>
-      <div class="search">
-        <form action="{% url 'contact:search' %}" method="GET">
-          <input type="search" class="search-input" placeholder='Search' id='search' name='q', value={{request.GET.q}}>
-        </form>
-      </div>
     </nav>
-  </header>
+    {% if user.is_authenticated %}
+    <div class="search">
+      <form action="{% url 'contact:search' %}" method="GET">
+        <input type="search" class="search-input" placeholder='Search' id='search' name='q', value={{request.GET.q}}>
+      </form>
+    </div>
+    {% endif %}
+
+
+    </header>

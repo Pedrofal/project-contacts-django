@@ -9,38 +9,27 @@ from django.contrib.auth import password_validation
 class ContactForm(forms.ModelForm):
     class Meta:
         model = models.Contact
-        fields = (
-            'first_name', 'last_name', 'phone', 'email', 'description', 'category', 'picture',
-        )
+        fields = ('first_name', 'last_name', 'phone', 'email', 'description', 'category', 'picture',)
     
     picture = forms.ImageField(
         widget=forms.FileInput(
-            attrs={
-                'accept': 'image/*'
-                },
-            
-            ),
+            attrs={'accept': 'image/*'},
+        ),
         required=False,
-        )
+    )
     
     first_name = forms.CharField(
-       widget=forms.TextInput(
-           attrs={
-               'placeholder':"First Name",
-               }),
-        label='First Name'
-       )
+       widget=forms.TextInput(attrs={'placeholder': "First Name"}),
+       label='First Name'
+    )
     last_name = forms.CharField(
-       widget=forms.TextInput(
-           attrs={
-               'placeholder':"Last Name",
-               }),
-        label='Last Name'
-       )
+       widget=forms.TextInput(attrs={'placeholder': "Last Name"}),
+       label='Last Name'
+    )
+
     def clean(self):
-        cleaned_data = self.cleaned_data
-        return super().clean()
-    
+        cleaned_data = super().clean()
+        return cleaned_data
 class RegisterForm(UserCreationForm):
      first_name = forms.CharField(
        widget=forms.TextInput(
@@ -128,9 +117,9 @@ class RegisterUpdateForm (forms.ModelForm):
            'first_name','last_name','email', 
            )
     def save(self, commit=True):
-        data = self.cleaned_data["password1"]
+        cleaned_data = self.cleaned_data
         user = super().save(commit=False)
-        password = self.cleaned_data["password1"]
+        password = cleaned_data.get("password1")
         
         if password:
             user.set_password(password)
