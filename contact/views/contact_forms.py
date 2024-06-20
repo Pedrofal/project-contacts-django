@@ -55,5 +55,5 @@ def update(request, contact_id):
 def delete(request, contact_id):
     contact = get_object_or_404(Contact, id=contact_id, show=True, owner=request.user)
     contact.delete()
-    messages.error(request, 'User has been deleted successfully')
+    messages.error(request, 'Contact has been deleted successfully')
     return redirect('contact:index')
